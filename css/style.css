@@ -3287,6 +3287,10 @@ div.widget a {
   color: #333333;
   text-decoration: none;
 }
+div.widget a:hover {
+  color: #D56A24;
+  text-decoration: none;
+}
 
 a:focus,
 a:hover {
