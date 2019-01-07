@@ -3280,6 +3280,10 @@ body {
 }
 
 a {
+  color: #267DD4;
+  text-decoration: none;
+}
+div.widget a {
   color: #333333;
   text-decoration: none;
 }
@@ -4794,7 +4798,7 @@ a.label:focus {
   margin-top: 0;
   margin-bottom: 0;
   font-size: 16px;
-  color: inherit;
+  color: #267DD4;
 }
 
 .panel-title > a,
@@ -6418,7 +6422,7 @@ body.no-sidebar .sidebar {
 
 .article-header {
   margin-bottom: 20px;
-  color: #555555;
+  color: #267DD4;
   /* added font-size here to make article header font size uniform throughout*/
   font-size: 21px;
 }
@@ -6690,12 +6694,12 @@ body.okayNav-loaded {
 }
 
 .okayNav a {
-  color: #2e2e33;
+  color: #267DD4;
   font-weight: 400;
 }
 
 .okayNav a:hover {
-  color: #0a6ebd;
+  color: #D56A24;
 }
 
 /**
