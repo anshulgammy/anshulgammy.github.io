@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang=En>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="referrer" content="never">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>Securing Rest Web Service with In-Memory model of BasicAuth | TechBrunch</title>
+  <meta name="description" content="This post deals with Securing a Spring Rest Web Service, using in-memory model of BasicAuth offered by Spring Security. The sample application built for this purpose has used Java 1.8 and Spring depen">
+<meta name="keywords" content="Development,Java,REST,Web Service,Spring Security">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Securing Rest Web Service with In-Memory model of BasicAuth">
+<meta property="og:url" content="https://techbrunch.anshulgautam.in/article/2019/01/11/SecuringRestWebService/index.html">
+<meta property="og:site_name" content="TechBrunch">
+<meta property="og:description" content="This post deals with Securing a Spring Rest Web Service, using in-memory model of BasicAuth offered by Spring Security. The sample application built for this purpose has used Java 1.8 and Spring depen">
+<meta property="og:locale" content="English">
+<meta property="og:updated_time" content="2019-01-22T06:09:07.723Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Securing Rest Web Service with In-Memory model of BasicAuth">
+<meta name="twitter:description" content="This post deals with Securing a Spring Rest Web Service, using in-memory model of BasicAuth offered by Spring Security. The sample application built for this purpose has used Java 1.8 and Spring depen">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://techbrunch.anshulgautam.in/article/2019/01/11/SecuringRestWebService/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="TechBrunch" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="../images/icon.png" type="image/x-icon">
+  
+  <!-- font-awesome CSS -->
+  <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="../../../../../css/style.css">
+  
+    
+    
+
+</head>
+
+
+<body class="main-center pure" itemscope itemtype="http://schema.org/WebPage">
+  <!-- the below script is present in getUrlForLinks.js file. -->
+
+<header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/anshulgammy" target="_blank">
+          <img class="img-circle img-rotate" src="../../../../../images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Anshul Gautam</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Apps Builder | Tech Explorer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> India</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="../../../../../.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about techbrunch">
+          <a href="../../../../../about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About TechBrunch</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="../../../../../archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-labels">
+          <a href="../../../../../tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Labels</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-my poor skills - blog">
+          <a href="http://blog.anshulgautam.in">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">My Poor Skills - Blog</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/anshulgammy" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://twitter.com/anshulgammy" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.facebook.com/mysalvations" target="_blank" title="Facebook" data-toggle="tooltip" data-placement="top"><i class="icon icon-facebook"></i></a></li>
+        
+        <li><a href="https://in.linkedin.com/in/anshulgammy" target="_blank" title="Linkedin" data-toggle="tooltip" data-placement="top"><i class="icon icon-linkedin"></i></a></li>
+        
+        <li><a href="../../../../../atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">My Tech Stack</h3>
+    <div class="widget-body">
+		<table id="table1">
+			<tr>
+				<td><img src="../../../../../images/java.png " style="float:left;width: 30px; max-width: 30px; !important;" alt="java_logo"></td>
+				<td><img src="../../../../../images/docker.png " style="float:left;width: 45px; max-width: 45px; !important;" alt="docker_logo"></td>
+				<td><img src="../../../../../images/angular.png " style="float:left;width: 45px; max-width: 45px; !important;" alt="angular_logo"></td>
+				<td><img src="../../../../../images/lambda.png " style="float:left;width: 35px; max-width: 35px; !important;" alt="awslambda_logo"></td>
+			</tr>
+		</table>
+		<table id="table2">
+			<tr>
+				<td><img src="../../../../../images/node.png " style="float:left;width: 50px; max-width: 50px; !important;" alt="node_logo"></td>
+				<td><img src="../../../../../images/spring.png " style="float:left;width: 60px; max-width: 60px; !important;" alt="spring_logo"></td>		
+				<td><img src="../../../../../images/mongodb.png " style="float:left;width: 50px; max-width: 50px; !important;" alt="mongodb_logo"></td>
+			</tr>
+		</table>		
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Official Facebook Page</h3>
+    <div class="widget-body">
+    	<p style="font-size:12px; font-style: italic;">Please 'Like' and 'Follow' the Official Facebook page for 'Tech Brunch'.</p><br>
+      <div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.1&appId=128684073881989&autoLogAppEvents=1';
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+		<div class="fb-page" data-href="https://www.facebook.com/techbrunchsolutions" data-height="450" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/anshulweblog" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/anshulweblog">Anshul Gautam&#039;s - ViBGYOR</a></blockquote></div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <!--
+			  <p class="item-category">
+                
+              </p> -->
+              <p class="item-title">
+                <a href="../../../04/23/angular-spa-auth0-impl/" class="title">Angular SPA with Auth0 Implementation</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-23T09:49:04.000Z" itemprop="datePublished">2019-04-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <!--
+			  <p class="item-category">
+                
+              </p> -->
+              <p class="item-title">
+                <a href="../../../04/22/FixGithubPages404/" class="title">Fix Github Pages 404 Error</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-22T09:03:11.000Z" itemprop="datePublished">2019-04-22</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <!--
+			  <p class="item-category">
+                <a class="category-link" href="../../../../../categories/Web/">Web</a><i class="icon icon-angle-right"></i><a class="category-link" href="../../../../../categories/Web/Web-Service/">Web Service</a>
+              </p> -->
+              <p class="item-title">
+                <a href="../../../04/22/JwtTokenImplementation/" class="title">JWT Token Implementation with Dedicated Authentication-Authorization Server</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-22T06:36:16.000Z" itemprop="datePublished">2019-04-22</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <!--
+			  <p class="item-category">
+                <a class="category-link" href="../../../../../categories/LDAP/">LDAP</a><i class="icon icon-angle-right"></i><a class="category-link" href="../../../../../categories/LDAP/Development/">Development</a>
+              </p> -->
+              <p class="item-title">
+                <a href="../../14/LdapVsRdbms/" class="title">LDAP vs RDBMS</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-01-14T12:16:26.000Z" itemprop="datePublished">2019-01-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <!--
+			  <p class="item-category">
+                <a class="category-link" href="../../../../../categories/Java/">Java</a><i class="icon icon-angle-right"></i><a class="category-link" href="../../../../../categories/Java/Development/">Development</a>
+              </p> -->
+              <p class="item-title">
+                <a href="" class="title">Securing Rest Web Service with In-Memory model of BasicAuth</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-01-11T10:22:09.000Z" itemprop="datePublished">2019-01-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Blog's Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../../archives/2019/04/">April 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../../archives/2019/01/">January 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../../archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../../archives/2018/09/">September 2018</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../../archives/2018/08/">August 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Angular/">Angular</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Angular/Development/">Development</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Angular/Development/Node/">Node</a><span class="category-list-count">1</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Blogger/">Blogger</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Blogger/Codder/">Codder</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Blogger/Development/">Development</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Blogger/Development/Node/">Node</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Blogger/Development/Node/Express/">Express</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Blogger/Development/Serverless-Framework/">Serverless Framework</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Blogger/Development/YAML/">YAML</a><span class="category-list-count">1</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Coder/">Coder</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Coder/Blogger/">Blogger</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Coder/Blogger/Node-js/">Node.js</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Coder/Blogger/Node-js/JavaScript/">JavaScript</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Coder/Blogger/Node-js/JavaScript/Development/">Development</a><span class="category-list-count">1</span></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Coder/Development/">Development</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Git/">Git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Git/Development/">Development</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Git/Development/Version-Controlling/">Version Controlling</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Git/Development/Version-Controlling/macOS-Sierra/">macOS Sierra</a><span class="category-list-count">1</span></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Java/">Java</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Java/Development/">Development</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Java/Development/Maven/">Maven</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Java/Development/Maven/Embedded-Server/">Embedded Server</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Java/Development/Maven/Embedded-Server/Tomcat/">Tomcat</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Java/Development/Maven/Read-Write-Excel/">Read-Write Excel</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Java/Development/REST/">REST</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Java/Development/REST/Web-Service/">Web Service</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Java/Development/REST/Web-Service/Spring/">Spring</a><span class="category-list-count">2</span></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/LDAP/">LDAP</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/LDAP/Development/">Development</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/LDAP/Development/RDBMS/">RDBMS</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/LDAP/Development/RDBMS/Spring/">Spring</a><span class="category-list-count">1</span></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Web/">Web</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Web/Web-Service/">Web Service</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Web/Web-Service/Java/">Java</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../../categories/Web/Web-Service/Java/Security/">Security</a><span class="category-list-count">1</span></li></ul></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="../../../../../tags/Angular/" style="font-size: 13px;">Angular</a> <a href="../../../../../tags/Angular-5/" style="font-size: 13px;">Angular 5</a> <a href="../../../../../tags/App/" style="font-size: 13px;">App</a> <a href="../../../../../tags/Auth0/" style="font-size: 13px;">Auth0</a> <a href="../../../../../tags/Authentication-Authorization/" style="font-size: 13px;">Authentication-Authorization</a> <a href="../../../../../tags/Blog/" style="font-size: 13.75px;">Blog</a> <a href="../../../../../tags/Blogging-Platforms/" style="font-size: 13px;">Blogging Platforms</a> <a href="../../../../../tags/Cloud/" style="font-size: 13px;">Cloud</a> <a href="../../../../../tags/Developer/" style="font-size: 13.25px;">Developer</a> <a href="../../../../../tags/Development/" style="font-size: 14px;">Development</a> <a href="../../../../../tags/Error-404/" style="font-size: 13px;">Error 404</a> <a href="../../../../../tags/Express-API/" style="font-size: 13px;">Express API</a> <a href="../../../../../tags/Fun-at-Workplace/" style="font-size: 13px;">Fun at Workplace</a> <a href="../../../../../tags/Ghost-Jekyll/" style="font-size: 13.25px;">Ghost Jekyll</a> <a href="../../../../../tags/Git/" style="font-size: 13px;">Git</a> <a href="../../../../../tags/GitHub-Desktop/" style="font-size: 13px;">GitHub Desktop</a> <a href="../../../../../tags/GitHub-Pages/" style="font-size: 13px;">GitHub Pages</a> <a href="../../../../../tags/Github-Pages/" style="font-size: 13px;">Github Pages</a> <a href="../../../../../tags/Hello-World/" style="font-size: 13px;">Hello World</a> <a href="../../../../../tags/Hexo/" style="font-size: 13.5px;">Hexo</a> <a href="../../../../../tags/JWT/" style="font-size: 13px;">JWT</a> <a href="../../../../../tags/Java/" style="font-size: 13.25px;">Java</a> <a href="../../../../../tags/JavaScript/" style="font-size: 13px;">JavaScript</a> <a href="../../../../../tags/LDAP/" style="font-size: 13px;">LDAP</a> <a href="../../../../../tags/Love-Calculator/" style="font-size: 13px;">Love Calculator</a> <a href="../../../../../tags/Markdown/" style="font-size: 13px;">Markdown</a> <a href="../../../../../tags/Maven-Modules/" style="font-size: 13px;">Maven Modules</a> <a href="../../../../../tags/Node/" style="font-size: 13.75px;">Node</a> <a href="../../../../../tags/Node-js/" style="font-size: 13px;">Node.js</a> <a href="../../../../../tags/Plugins/" style="font-size: 13px;">Plugins</a> <a href="../../../../../tags/RDBMS/" style="font-size: 13px;">RDBMS</a> <a href="../../../../../tags/REST/" style="font-size: 13.25px;">REST</a> <a href="../../../../../tags/Reference-Guide/" style="font-size: 13px;">Reference Guide</a> <a href="../../../../../tags/STS/" style="font-size: 13px;">STS</a> <a href="../../../../../tags/SVG/" style="font-size: 13px;">SVG</a> <a href="../../../../../tags/Secuirty/" style="font-size: 13px;">Secuirty</a> <a href="../../../../../tags/Serverless-Framework/" style="font-size: 13px;">Serverless Framework</a> <a href="../../../../../tags/Socket-IO/" style="font-size: 13px;">Socket IO</a> <a href="../../../../../tags/SourceTree/" style="font-size: 13px;">SourceTree</a> <a href="../../../../../tags/Spring/" style="font-size: 13.25px;">Spring</a> <a href="../../../../../tags/Spring-Boot/" style="font-size: 13px;">Spring Boot</a> <a href="../../../../../tags/Spring-Security/" style="font-size: 13px;">Spring Security</a> <a href="../../../../../tags/Web-Service/" style="font-size: 13.25px;">Web Service</a> <a href="../../../../../tags/XML/" style="font-size: 13px;">XML</a> <a href="../../../../../tags/YAML/" style="font-size: 13px;">YAML</a>
+    </div>
+  </div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <script type="text/javascript">
+var disqus_config = function () {
+this.page.url = "https://techbrunch.anshulgautam.in/article/2019/01/11/SecuringRestWebService/"; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "" // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://techbrunchwithanshul.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<div class="centerTitleBar" id="centerTitleBar">
+  <p><span class="websiteLogoText"><span id="techPart">&lt;Tech&gt;</span><span id="brunchPart">Brunch</span></span></p>
+</div><br>
+<div class="content">
+  <article id="post-SecuringRestWebService" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Securing Rest Web Service with In-Memory model of BasicAuth
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="" class="article-date">
+	  <time datetime="2019-01-11T10:22:09.000Z" itemprop="datePublished">2019-01-11</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="../../../../../categories/Java/">Java</a>►<a class="article-category-link" href="../../../../../categories/Java/Development/">Development</a>►<a class="article-category-link" href="../../../../../categories/Java/Development/REST/">REST</a>►<a class="article-category-link" href="../../../../../categories/Java/Development/REST/Web-Service/">Web Service</a>►<a class="article-category-link" href="../../../../../categories/Java/Development/REST/Web-Service/Spring/">Spring</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="../../../../../tags/Development/">Development</a>, <a class="article-tag-link" href="../../../../../tags/Java/">Java</a>, <a class="article-tag-link" href="../../../../../tags/REST/">REST</a>, <a class="article-tag-link" href="../../../../../tags/Spring-Security/">Spring Security</a>, <a class="article-tag-link" href="../../../../../tags/Web-Service/">Web Service</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry markdown-body" itemprop="articleBody">
+      
+        <p>This post deals with Securing a Spring Rest Web Service, using in-memory model of BasicAuth offered by Spring Security. The sample application built for this purpose has used Java 1.8 and Spring dependencies for version 5.</p>
+<p>An earlier post on this website, ‘<a href="https://anshulgautam.in/2019/01/09/RestWebServiceWithSpring/">Building REST Web Service with Spring 5</a>‘, covered creating a Rest Web Service using Spring 5. In this post, I am going to build authentication on the same set of Rest Web Services.</p>
+<p>I prefer annotations/Java Configuration, so I have entirely used Java configuration in this implementation.<br>Over the existing Rest Webservice, I used In-Memory credentials with Default Spring BasicAuth. I will be sharing what new changes I had to do in this implementation.<br><a id="more"></a><br>The SpringSecurityConfig class which extends WebSecurityConfigurerAdapter. This class is the config class used to declare all the configurations related to Spring Security.<br>This class uses inMemoryAuthentication, and defines legitimate users and their credentials with roles.<br>I have put a check on http request under configure() method, to intercept it and do authentication upon it.</p>
+<p>Rest web services under this implementation are protected even if someone tries to hit GET requests through browsers. On hitting the resource URL through browser, a login form will be presented. While using REST clients, like SOAP-UI/PostMan, we need to provide authentication credentials under ‘Basic Auth’.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@EnableWebSecurity</span><br><span class="line">public class SpringSecurityConfig extends WebSecurityConfigurerAdapter &#123;</span><br><span class="line">	@Autowired</span><br><span class="line">	protected void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception &#123;</span><br><span class="line">		auth.inMemoryAuthentication().withUser(CommonConstants.ADMIN_USER_NAME).password(CommonConstants.ADMIN_USER_PWD)</span><br><span class="line">				.roles(CommonConstants.ADMIN_ROLE);</span><br><span class="line">		auth.inMemoryAuthentication().withUser(CommonConstants.USER_USER_NAME).password(CommonConstants.USER_PWD)</span><br><span class="line">				.roles(CommonConstants.USER_ROLE);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	protected void configure(HttpSecurity http) throws Exception &#123;</span><br><span class="line">		http.csrf().disable().exceptionHandling().and().authorizeRequests().antMatchers(&quot;/**&quot;)</span><br><span class="line">				.hasRole(CommonConstants.ADMIN_ROLE).and().httpBasic().and().formLogin();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>The SpringSecurityInitializer class, which extends AbstractSecurityWebApplicationInitializer. The purpose of this class is to load springSecurityFilterChain automatically. Just an empty class will do, unless you want to override some methods for some additional custom configurations.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public class SpringSecurityInitializer extends AbstractSecurityWebApplicationInitializer &#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>The SpringBeanDefinitionsConfig class. This class is for configuring the beans for the Spring Application using Java Configuration only. I have defined my implementation of PasswordEncoder because Spring 5 onwards, having an implementation of PasswordEncoder is necessary. Though, my PasswordEncoder does nothing rather than comparing two plain Strings. :D<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@EnableWebMvc</span><br><span class="line">@ComponentScan(basePackages = &quot;com.techbrunch.boostrap.webapplication&quot;)</span><br><span class="line">public class SpringBeanDefinitionsConfig &#123;</span><br><span class="line">	</span><br><span class="line">	@Bean</span><br><span class="line">	public PasswordEncoder passwordEncoder()&#123;</span><br><span class="line">	    return new MyPasswordEncoder();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br>You can find the complete code for this implementation of Authentication for Rest Web Service at my GitHub repo below:<br><a href="https://github.com/anshulgammy/inmemauthforrestwebservice" target="_blank" rel="noopener">https://github.com/anshulgammy/inmemauthforrestwebservice</a><br><br><br><br></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>Link to this article:</strong>
+      <a href="https://techbrunch.anshulgautam.in/article/2019/01/11/SecuringRestWebService/" title="Securing Rest Web Service with In-Memory model of BasicAuth" target="_blank" rel="external">https://techbrunch.anshulgautam.in/article/2019/01/11/SecuringRestWebService/</a>
+    </li>
+    
+    
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/anshulgammy" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="../../../../../images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/anshulgammy" target="_blank"><span class="text-dark">Anshul Gautam</span><small class="ml-1x"></small></a></h3>
+        <div>Hi! I am the author of this blog. I love technology, and open source stuffs that have been changing our lives for better. Encourage me with your suggestions and comments. =)</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  <div id="disqus_thread"></div>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="../../14/LdapVsRdbms/" title="LDAP vs RDBMS"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="../../09/RestWebServiceWithSpring/" title="Building REST Web Service with Spring 5"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="facebook,twitter" data-mobile-sites="facebook,twitter"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/anshulgammy" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://twitter.com/anshulgammy" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.facebook.com/mysalvations" target="_blank" title="Facebook" data-toggle="tooltip" data-placement="top"><i class="icon icon-facebook"></i></a></li>
+        
+        <li><a href="https://in.linkedin.com/in/anshulgammy" target="_blank" title="Linkedin" data-toggle="tooltip" data-placement="top"><i class="icon icon-linkedin"></i></a></li>
+        
+        <li><a href="../../../../../atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+            <u>Developed by: Anshul Gautam</u><br>
+			anshulgammy@outlook.com<br>
+            All Rights Reserved.
+        </div>
+    </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="../../../../../js/plugin.min.js"></script>
+<script src="../../../../../js/application.js"></script>
+<script src="../../../../../js/getUrlForLinks.js"></script>
+<script src="../../../../../js/changeBanner.js"></script>
+  
+    
+    
+    
+        <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '../../../../../content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="../../../../../js/insight.js"></script>
+    
+    
+    
+        
+
+
+    
+    
+        
+    
+    
+
+
+
+</body>
+</html>
