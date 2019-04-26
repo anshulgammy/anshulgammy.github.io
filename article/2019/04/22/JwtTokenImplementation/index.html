@@ -19,21 +19,21 @@
   
   <title>JWT Token Implementation with Dedicated Authentication-Authorization Server | TechBrunch</title>
   <meta name="description" content="JWT stands for JSON Web Token. JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object.">
-<meta name="keywords" content="Spring Boot,Development,JWT,Secuirty">
+<meta name="keywords" content="Development,Spring Boot,JWT,Secuirty">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JWT Token Implementation with Dedicated Authentication-Authorization Server">
 <meta property="og:url" content="https://techbrunch.anshulgautam.in/article/2019/04/22/JwtTokenImplementation/index.html">
 <meta property="og:site_name" content="TechBrunch">
 <meta property="og:description" content="JWT stands for JSON Web Token. JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object.">
 <meta property="og:locale" content="English">
-<meta property="og:image" content="https://techbrunch.anshulgautam.in/2019/04/22/JwtTokenImplementation/jwtLogo.PNG">
-<meta property="og:image" content="https://techbrunch.anshulgautam.in/2019/04/22/JwtTokenImplementation/flowDiagram.PNG">
-<meta property="og:image" content="https://techbrunch.anshulgautam.in/2019/04/22/JwtTokenImplementation/jwtTokenExampleDemo.PNG">
+<meta property="og:image" content="https://techbrunch.anshulgautam.in/article/2019/04/22/JwtTokenImplementation/jwtLogo.PNG">
+<meta property="og:image" content="https://techbrunch.anshulgautam.in/article/2019/04/22/JwtTokenImplementation/flowDiagram.PNG">
+<meta property="og:image" content="https://techbrunch.anshulgautam.in/article/2019/04/22/JwtTokenImplementation/jwtTokenExampleDemo.PNG">
 <meta property="og:updated_time" content="2019-04-22T08:31:36.088Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JWT Token Implementation with Dedicated Authentication-Authorization Server">
 <meta name="twitter:description" content="JWT stands for JSON Web Token. JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object.">
-<meta name="twitter:image" content="https://techbrunch.anshulgautam.in/2019/04/22/JwtTokenImplementation/jwtLogo.PNG">
+<meta name="twitter:image" content="https://techbrunch.anshulgautam.in/article/2019/04/22/JwtTokenImplementation/jwtLogo.PNG">
   <!-- Canonical links -->
   <link rel="canonical" href="https://techbrunch.anshulgautam.in/article/2019/04/22/JwtTokenImplementation/index.html">
   
@@ -145,12 +145,12 @@
         </li>
         
         
-        <li class="menu-item menu-item-my poor skills - blog">
+        <li class="menu-item menu-item-ripples">
           <a href="http://blog.anshulgautam.in">
             
             <i class="icon icon-book-fill"></i>
             
-            <span class="menu-title">My Poor Skills - Blog</span>
+            <span class="menu-title">Ripples</span>
           </a>
         </li>
         
@@ -407,7 +407,7 @@ s.setAttribute('data-timestamp', +new Date());
     </div>
     <div class="article-entry markdown-body" itemprop="articleBody">
       
-        <p align="center"><br><img src="/2019/04/22/JwtTokenImplementation/jwtLogo.PNG" title="JWT Logo"><br></p><br><br>JWT stands for JSON Web Token. JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA.<br>JWT can have symmetric/asymmetric signatures for Signing. It is currently the latest standard for implementing Security in our web applications.<br><br>Flow, how it works with JWT:<br>- Each security tokens are protected data structures. it contains information about issuer, time of expiration of token, subject etc. These are identified under the claim section of JWT.<br>- Each JWT Token is signed, so its tamper proof and bears authenticity throughout its valid time frame.<br>- For accessing any resource, client requests for a token.<br>- Issuer issues a token to the client.<br>- Client makes use of that token when talking to resources. This token is generally placed in header of the request for consuming resource services.<br><a id="more"></a><br><br>When client wants to talk to resource, using a valid token in its header section of the request, resource can behave in two ways to serve the requests of clients:<br>1. By validating the token present in the request, which was provided to the client from the issuer or an Authentication Server. In this case, resource server has trust relationship with the issuer and it has also the information about encrypting standards used by the issuer. By making use of these information, resource validates the token and if the token if valid serves client with the sought services.<br><br>2. By sending the token received from the request to the Authentication-Authorization server. In this scenario, Issuer/Token-Validator is on the same server. It has responsibility to issue valid tokens to clients’ valid requests. It also does the task of validating the token sent by resource server. About the validity of token, the Authentication-Authorization server responds to resource server accordingly. Based on the output from Authentication-Authorization server, resource server can then process/reject the client requests.<br><br><p align="left"><br><img src="/2019/04/22/JwtTokenImplementation/flowDiagram.PNG"><br></p>
+        <p align="center"><br><img src="/article/2019/04/22/JwtTokenImplementation/jwtLogo.PNG" title="JWT Logo"><br></p><br><br>JWT stands for JSON Web Token. JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA.<br>JWT can have symmetric/asymmetric signatures for Signing. It is currently the latest standard for implementing Security in our web applications.<br><br>Flow, how it works with JWT:<br>- Each security tokens are protected data structures. it contains information about issuer, time of expiration of token, subject etc. These are identified under the claim section of JWT.<br>- Each JWT Token is signed, so its tamper proof and bears authenticity throughout its valid time frame.<br>- For accessing any resource, client requests for a token.<br>- Issuer issues a token to the client.<br>- Client makes use of that token when talking to resources. This token is generally placed in header of the request for consuming resource services.<br><a id="more"></a><br><br>When client wants to talk to resource, using a valid token in its header section of the request, resource can behave in two ways to serve the requests of clients:<br>1. By validating the token present in the request, which was provided to the client from the issuer or an Authentication Server. In this case, resource server has trust relationship with the issuer and it has also the information about encrypting standards used by the issuer. By making use of these information, resource validates the token and if the token if valid serves client with the sought services.<br><br>2. By sending the token received from the request to the Authentication-Authorization server. In this scenario, Issuer/Token-Validator is on the same server. It has responsibility to issue valid tokens to clients’ valid requests. It also does the task of validating the token sent by resource server. About the validity of token, the Authentication-Authorization server responds to resource server accordingly. Based on the output from Authentication-Authorization server, resource server can then process/reject the client requests.<br><br><p align="left"><br><img src="/article/2019/04/22/JwtTokenImplementation/flowDiagram.PNG"><br></p>
 
 <p>We have developed an example application which implements JWT for Security, and goes by the second approach mentioned above. Each issues JWT token stays valid for 2 minutes and then expires. On using the same JWT token, resource server will reject the requests. Client needs to get the new token from Authentication-Authorization server. The token persists in a cookie at Client Side. In this approach all the logic of issuing the token and validating the token is present at only one place, that is at the Authentication-Authorization server end. If we have to scale up in a Dockerized environment, we can create as much instance of Authentication-Authorization server we want, and code wise everything related to authentication and authorization is present at only one place.</p>
 <p>The demo project has:</p>
@@ -416,7 +416,7 @@ s.setAttribute('data-timestamp', +new Date());
 <li>An authentication-authorization server.</li>
 <li>A resource server that is serving to requests made via web service calls.</li>
 </ul>
-<p align="center"><br><img src="/2019/04/22/JwtTokenImplementation/jwtTokenExampleDemo.PNG"><br></p>
+<p align="center"><br><img src="/article/2019/04/22/JwtTokenImplementation/jwtTokenExampleDemo.PNG"><br></p>
 
 <p>Please find the link to GitHub repository below:</p>
 <p><a href="https://github.com/anshulgammy/jwt-implementation-springboot" target="_blank" rel="noopener">https://github.com/anshulgammy/jwt-implementation-springboot</a></p>

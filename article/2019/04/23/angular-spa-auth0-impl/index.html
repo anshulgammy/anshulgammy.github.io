@@ -26,17 +26,17 @@
 <meta property="og:site_name" content="TechBrunch">
 <meta property="og:description" content="As part of Authorization Code flow implementation, we developed a sample Angular SPA, which made use of Auth0 as the Identity Provider and Validator. Auth0 provides authentication and authorization as">
 <meta property="og:locale" content="English">
-<meta property="og:image" content="https://techbrunch.anshulgautam.in/2019/04/23/angular-spa-auth0-impl/auth0FlowDiagram.PNG">
-<meta property="og:image" content="https://techbrunch.anshulgautam.in/2019/04/23/angular-spa-auth0-impl/1.PNG">
-<meta property="og:image" content="https://techbrunch.anshulgautam.in/2019/04/23/angular-spa-auth0-impl/2.PNG">
-<meta property="og:image" content="https://techbrunch.anshulgautam.in/2019/04/23/angular-spa-auth0-impl/3.PNG">
-<meta property="og:image" content="https://techbrunch.anshulgautam.in/2019/04/23/angular-spa-auth0-impl/4.PNG">
-<meta property="og:image" content="https://techbrunch.anshulgautam.in/2019/04/23/angular-spa-auth0-impl/5.PNG">
-<meta property="og:updated_time" content="2019-04-23T10:16:25.672Z">
+<meta property="og:image" content="https://techbrunch.anshulgautam.in/article/2019/04/23/angular-spa-auth0-impl/auth0FlowDiagram.PNG">
+<meta property="og:image" content="https://techbrunch.anshulgautam.in/article/2019/04/23/angular-spa-auth0-impl/1.PNG">
+<meta property="og:image" content="https://techbrunch.anshulgautam.in/article/2019/04/23/angular-spa-auth0-impl/2.PNG">
+<meta property="og:image" content="https://techbrunch.anshulgautam.in/article/2019/04/23/angular-spa-auth0-impl/3.PNG">
+<meta property="og:image" content="https://techbrunch.anshulgautam.in/article/2019/04/23/angular-spa-auth0-impl/4.PNG">
+<meta property="og:image" content="https://techbrunch.anshulgautam.in/article/2019/04/23/angular-spa-auth0-impl/5.PNG">
+<meta property="og:updated_time" content="2019-04-26T08:37:29.023Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Angular SPA with Auth0 Implementation">
 <meta name="twitter:description" content="As part of Authorization Code flow implementation, we developed a sample Angular SPA, which made use of Auth0 as the Identity Provider and Validator. Auth0 provides authentication and authorization as">
-<meta name="twitter:image" content="https://techbrunch.anshulgautam.in/2019/04/23/angular-spa-auth0-impl/auth0FlowDiagram.PNG">
+<meta name="twitter:image" content="https://techbrunch.anshulgautam.in/article/2019/04/23/angular-spa-auth0-impl/auth0FlowDiagram.PNG">
   <!-- Canonical links -->
   <link rel="canonical" href="https://techbrunch.anshulgautam.in/article/2019/04/23/angular-spa-auth0-impl/index.html">
   
@@ -148,12 +148,12 @@
         </li>
         
         
-        <li class="menu-item menu-item-my poor skills - blog">
+        <li class="menu-item menu-item-ripples">
           <a href="http://blog.anshulgautam.in">
             
             <i class="icon icon-book-fill"></i>
             
-            <span class="menu-title">My Poor Skills - Blog</span>
+            <span class="menu-title">Ripples</span>
           </a>
         </li>
         
@@ -407,7 +407,7 @@ s.setAttribute('data-timestamp', +new Date());
       
         <p>As part of Authorization Code flow implementation, we developed a sample Angular SPA, which made use of Auth0 as the Identity Provider and Validator.</p>
 <p>Auth0 provides authentication and authorization as a service. We can connect any application (written in any language or on any stack) to Auth0 and define the identity providers we would want to use (how would we want our users to log in). Based on app’s technology, we just have to choose one Auth0 SDKs, or just call Auth0 APIs, and hook it up into our app. Now each time a user tries to authenticate, Auth0 will verify their identity and send the required information back to the app. Key thing to make note of is, Auth0 supports OAuth2 and OpenID Connect. Sad part is, Auth0 is not completely free. There is a free tier with limited resources available at our doorstep.</p>
-<p align="center"><br><img src="/2019/04/23/angular-spa-auth0-impl/auth0FlowDiagram.PNG" title="JWT Logo"><br></p><br><a id="more"></a><br>Let’s see how our sample app made use of Auth0:<br><p align="center"><br><img src="/2019/04/23/angular-spa-auth0-impl/1.PNG" title="JWT Logo"><br></p><br>This is the basic page, which is shown if user is not logged in. Upon logging out, this is also the page that will be called back from Auth0 upon logging out.<br><p align="center"><br><img src="/2019/04/23/angular-spa-auth0-impl/2.PNG" title="JWT Logo"><br></p><br>When clicked on login, we are calling the “auth0.authorize()” method, where auth0 is object initialized from ‘auth0-js’ node dependency where it takes in parameters like clientID, domain, responseType, scope etc. The clientID needs to be obtained upon registering our SPA app at Auth0 website.<br>We have allowed self-registration and allowing logging in through Microsoft Accounts/WindowsLive.<br><p align="center"><br><img src="/2019/04/23/angular-spa-auth0-impl/3.PNG" title="JWT Logo"><br></p><br>Once we have given our consent, we are redirected to the main page of our SPA from where we can access resources/resource server.<br><p align="center"><br><img src="/2019/04/23/angular-spa-auth0-impl/4.PNG" title="JWT Logo"><br></p><br>Users who have logged in/got access, are shown in the Auth0 dashboard. Anytime from the dashboard we can revoke/delete the user.<br><p align="center"><br><img src="/2019/04/23/angular-spa-auth0-impl/5.PNG" title="JWT Logo"><br></p>
+<p align="center"><br><img src="/article/2019/04/23/angular-spa-auth0-impl/auth0FlowDiagram.PNG" title="Flow Diagram of Auth0"><br></p><br><a id="more"></a><br>Let’s see how our sample app made use of Auth0:<br><p align="center"><br><img src="/article/2019/04/23/angular-spa-auth0-impl/1.PNG" title="App home screen"><br></p><br>This is the basic page, which is shown if user is not logged in. Upon logging out, this is also the page that will be called back from Auth0 upon logging out.<br><p align="center"><br><img src="/article/2019/04/23/angular-spa-auth0-impl/2.PNG" title="Login"><br></p><br>When clicked on login, we are calling the “auth0.authorize()” method, where auth0 is object initialized from ‘auth0-js’ node dependency where it takes in parameters like clientID, domain, responseType, scope etc. The clientID needs to be obtained upon registering our SPA app at Auth0 website.<br>We have allowed self-registration and allowing logging in through Microsoft Accounts/WindowsLive.<br><p align="center"><br><img src="/article/2019/04/23/angular-spa-auth0-impl/3.PNG" title="Provide Consent"><br></p><br>Once we have given our consent, we are redirected to the main page of our SPA from where we can access resources/resource server.<br><p align="center"><br><img src="/article/2019/04/23/angular-spa-auth0-impl/4.PNG" title="Logged In App"><br></p><br>Users who have logged in/got access, are shown in the Auth0 dashboard. Anytime from the dashboard we can revoke/delete the user.<br><p align="center"><br><img src="/article/2019/04/23/angular-spa-auth0-impl/5.PNG" title="Auth0 Dashboard"><br></p>
 
 <p>Code for this sample app is available at the following Github location:<br><a href="https://github.com/anshulgammy/angularspa-auth0-impl" target="_blank" rel="noopener">https://github.com/anshulgammy/angularspa-auth0-impl</a></p>
 

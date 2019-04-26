@@ -1,4 +1,4 @@
-function reziseMyHeaderFont() {
+/*function reziseMyHeaderFont() {
     var bannerObject = document.getElementById("centerTitleBar");
     var referenceObject = document.getElementsByClassName("article-header")[0];
     var widthOfPage = referenceObject.scrollWidth;
@@ -10,4 +10,4 @@ function reziseMyHeaderFont() {
 }
  window.onresize = function(event) {
      reziseMyHeaderFont();
-};
+ }; */

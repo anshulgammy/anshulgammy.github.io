@@ -140,12 +140,12 @@
         </li>
         
         
-        <li class="menu-item menu-item-my poor skills - blog">
+        <li class="menu-item menu-item-ripples">
           <a href="http://blog.anshulgautam.in">
             
             <i class="icon icon-book-fill"></i>
             
-            <span class="menu-title">My Poor Skills - Blog</span>
+            <span class="menu-title">Ripples</span>
           </a>
         </li>
         
@@ -363,7 +363,7 @@
   <div class="article-entry text-muted" itemprop="description">
     <p>As part of Authorization Code flow implementation, we developed a sample Angular SPA, which made use of Auth0 as the Identity Provider and Validator.</p>
 <p>Auth0 provides authentication and authorization as a service. We can connect any application (written in any language or on any stack) to Auth0 and define the identity providers we would want to use (how would we want our users to log in). Based on app’s technology, we just have to choose one Auth0 SDKs, or just call Auth0 APIs, and hook it up into our app. Now each time a user tries to authenticate, Auth0 will verify their identity and send the required information back to the app. Key thing to make note of is, Auth0 supports OAuth2 and OpenID Connect. Sad part is, Auth0 is not completely free. There is a free tier with limited resources available at our doorstep.</p>
-<p align="center"><br><img src="/2019/04/23/angular-spa-auth0-impl/auth0FlowDiagram.PNG" title="JWT Logo"><br></p><br>
+<p align="center"><br><img src="/article/2019/04/23/angular-spa-auth0-impl/auth0FlowDiagram.PNG" title="Flow Diagram of Auth0"><br></p><br>
   </div>
   
   <p class="article-meta">
@@ -441,7 +441,7 @@
   </div>
   
   <div class="article-entry text-muted" itemprop="description">
-    <p align="center"><br><img src="/2019/04/22/JwtTokenImplementation/jwtLogo.PNG" title="JWT Logo"><br></p><br><br>JWT stands for JSON Web Token. JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA.<br>JWT can have symmetric/asymmetric signatures for Signing. It is currently the latest standard for implementing Security in our web applications.<br><br>Flow, how it works with JWT:<br>- Each security tokens are protected data structures. it contains information about issuer, time of expiration of token, subject etc. These are identified under the claim section of JWT.<br>- Each JWT Token is signed, so its tamper proof and bears authenticity throughout its valid time frame.<br>- For accessing any resource, client requests for a token.<br>- Issuer issues a token to the client.<br>- Client makes use of that token when talking to resources. This token is generally placed in header of the request for consuming resource services.<br>
+    <p align="center"><br><img src="/article/2019/04/22/JwtTokenImplementation/jwtLogo.PNG" title="JWT Logo"><br></p><br><br>JWT stands for JSON Web Token. JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA.<br>JWT can have symmetric/asymmetric signatures for Signing. It is currently the latest standard for implementing Security in our web applications.<br><br>Flow, how it works with JWT:<br>- Each security tokens are protected data structures. it contains information about issuer, time of expiration of token, subject etc. These are identified under the claim section of JWT.<br>- Each JWT Token is signed, so its tamper proof and bears authenticity throughout its valid time frame.<br>- For accessing any resource, client requests for a token.<br>- Issuer issues a token to the client.<br>- Client makes use of that token when talking to resources. This token is generally placed in header of the request for consuming resource services.<br>
   </div>
   
   <p class="article-meta">
@@ -487,7 +487,7 @@
   <div class="article-entry text-muted" itemprop="description">
     <p>Before having a look at LDAP, we should know about ‘Directory’.</p>
 <p><b>What is directory structure?</b><br>The directory structure is the organization of files into a hierarchy of folders. It should be stable and scalable; it should not fundamentally change, only be added to. Computers have used the folder metaphor for decades as a way to help users keep track of where something can be found.<br>When information is stored in Directory Structure, it becomes very much feasible to manage hierarchical information, read/write to it. This directory structure can be scaled up to achieve three major functionalities on the web: Authentication, Authorization, and Personalization.</p>
-<p></p><p align="center"><br><img src="/2019/01/14/LdapVsRdbms/ldapvsrdbms.jpg"><br></p><br>LDAP stands for Lightweight Directory Access Protocol. LDAP is a standards based specification for interacting with directory data. Directory Services can implement support of LDAP to provide interoperability among third party applications.<br>LDAP is an open, industrial standard application protocol for reading and editing distributed directories over the network. In these directories, we have set of records in an organized hierarchical structure, similar to how a corporate email directory or a telephone directory looks like. LDAP enables anyone to locate resources in a network, be it on a public internet or corporate intranet. LDAP read operations are extremely fast than any other possible alternatives.<p></p>
+<p></p><p align="center"><br><img src="/article/2019/01/14/LdapVsRdbms/ldapvsrdbms.jpg"><br></p><br>LDAP stands for Lightweight Directory Access Protocol. LDAP is a standards based specification for interacting with directory data. Directory Services can implement support of LDAP to provide interoperability among third party applications.<br>LDAP is an open, industrial standard application protocol for reading and editing distributed directories over the network. In these directories, we have set of records in an organized hierarchical structure, similar to how a corporate email directory or a telephone directory looks like. LDAP enables anyone to locate resources in a network, be it on a public internet or corporate intranet. LDAP read operations are extremely fast than any other possible alternatives.<p></p>
 <p><b>When we have looked at LDAP, lets get to know what an Active Directory is…</b><br>Active Directory is Microsoft’s implementation of directory service that, among other protocols, supports LDAP to query it’s data.<br>
   </p></div>
   
@@ -533,7 +533,7 @@
   
   <div class="article-entry text-muted" itemprop="description">
     <p>This post deals with Securing a Spring Rest Web Service, using in-memory model of BasicAuth offered by Spring Security. The sample application built for this purpose has used Java 1.8 and Spring dependencies for version 5.</p>
-<p>An earlier post on this website, ‘<a href="https://anshulgautam.in/2019/01/09/RestWebServiceWithSpring/">Building REST Web Service with Spring 5</a>‘, covered creating a Rest Web Service using Spring 5. In this post, I am going to build authentication on the same set of Rest Web Services.</p>
+<p>An earlier post on this website, ‘<a href="https://anshulgautam.in/2019/01/09/RestWebServiceWithSpring/" target="_blank" rel="noopener">Building REST Web Service with Spring 5</a>‘, covered creating a Rest Web Service using Spring 5. In this post, I am going to build authentication on the same set of Rest Web Services.</p>
 <p>I prefer annotations/Java Configuration, so I have entirely used Java configuration in this implementation.<br>Over the existing Rest Webservice, I used In-Memory credentials with Default Spring BasicAuth. I will be sharing what new changes I had to do in this implementation.<br>
   </p></div>
   
@@ -579,7 +579,7 @@
   
   <div class="article-entry text-muted" itemprop="description">
     <p>Representational State Transfer (REST) is an architectural style that specifies constraints, such as the uniform interface, that if applied to a web service induce desirable properties, such as performance, scalability, and modifiability, that enable services to work best on the Web.<br>In the REST architectural style, data and functionality are considered resources and are accessed using Uniform Resource Identifiers (URIs), typically links on the Web. The resources are acted upon by using a set of simple, well-defined operations. The REST architectural style constrains an architecture to a client/server architecture and is designed to use a stateless communication protocol, typically HTTP.<br>In the REST architecture style, clients and servers exchange representations of resources by using a standardized interface and protocol.</p>
-<p></p><p align="center"><br><img src="/2019/01/09/RestWebServiceWithSpring/rest.jpg"><br></p><br>
+<p></p><p align="center"><br><img src="/article/2019/01/09/RestWebServiceWithSpring/rest.jpg"><br></p><br>
   </div>
   
   <p class="article-meta">
