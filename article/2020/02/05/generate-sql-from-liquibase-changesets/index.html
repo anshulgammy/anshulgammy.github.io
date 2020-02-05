@@ -26,10 +26,12 @@
 <meta property="og:site_name" content="TechBrunch">
 <meta property="og:description" content="The previous post on using Liquibase to manage database states explains how to setup Liquibase in the existing application.But sometimes, we might not want to run scripts in QA or PROD regions via Liq">
 <meta property="og:locale" content="English">
-<meta property="og:updated_time" content="2020-02-05T10:02:37.355Z">
+<meta property="og:image" content="https://techbrunch.anshulgautam.in/article/2020/02/05/generate-sql-from-liquibase-changesets/liquibase-logo.JPG">
+<meta property="og:updated_time" content="2020-02-05T10:05:19.182Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Generate SQL Script from Liquibase Changesets in the codebase">
 <meta name="twitter:description" content="The previous post on using Liquibase to manage database states explains how to setup Liquibase in the existing application.But sometimes, we might not want to run scripts in QA or PROD regions via Liq">
+<meta name="twitter:image" content="https://techbrunch.anshulgautam.in/article/2020/02/05/generate-sql-from-liquibase-changesets/liquibase-logo.JPG">
   <!-- Canonical links -->
   <link rel="canonical" href="https://techbrunch.anshulgautam.in/article/2020/02/05/generate-sql-from-liquibase-changesets/index.html">
   
@@ -403,9 +405,8 @@ s.setAttribute('data-timestamp', +new Date());
     </div>
     <div class="article-entry markdown-body" itemprop="articleBody">
       
-        <p><div style="width:30%;margin:0 auto;"><br><br></div><br>The previous post on using Liquibase to manage database states explains how to setup Liquibase in the existing application.<br>But sometimes, we might not want to run scripts in QA or PROD regions via Liquibase changesets trigger. One of the reason can be, to have our DBA review our SQL related changes before they can be run in higher regions.</p>
-<p>Liquibase has always supported an “updateSQL” mode which does not update the database but instead outputs what would be run. This allows developers and DBAs to know exactly what will be ran and even make modifications as needed before actually executing the script.</p>
-<p>Before version 3.2, however, Liquibase required an active database connection for updateSQL. It used that connection to determine the SQL dialect to use and to query the DATABASECHANGELOG table to learn what changeSets have already been executed.</p>
+        <p><div style="width:30%;margin:0 auto;"><br><img src="/article/2020/02/05/generate-sql-from-liquibase-changesets/liquibase-logo.JPG"><br></div><br>The previous post on using Liquibase to manage database states explains how to setup Liquibase in the existing application.<br>But sometimes, we might not want to run scripts in QA or PROD regions via Liquibase changesets trigger. One of the reason can be, to have our DBA review our SQL related changes before they can be run in higher regions.</p>
+<p>Liquibase has always supported an “updateSQL” mode which does not update the database but instead outputs what would be run. This allows developers and DBAs to know exactly what will be ran and even make modifications as needed before actually executing the script.<br><a id="more"></a><br>Before version 3.2, however, Liquibase required an active database connection for updateSQL. It used that connection to determine the SQL dialect to use and to query the DATABASECHANGELOG table to learn what changeSets have already been executed.</p>
 <p>I prefer to keep master.xml file, which includes all the changesets that need to be run. I will make use of updateSQL command to get the SQL queries generated for me. The generated queries from changesets will get syso-ed and a ‘databasechangelog.csv’ file will be generated which will give information on databasechangelog.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">liquibase --changeLogFile=<span class="string">"liquibase/master.xml"</span> --url=offline:mssql?  updateSQL</span><br></pre></td></tr></table></figure>
 <p>The above statement doesn’t need to have an active DB connection. I have used version 3.2 of Liquibase for this. –url is offline to ensure no DB connection is established, and mssql? is to tell Liquibase to kindly generate the script for MS SQL Server only.<br>Liquibase supports almost all the databases. We can use “oracle?” for Oracle DB, “mysql?” for MySQL DB, and similarly we have different variants.</p>
