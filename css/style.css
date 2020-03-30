@@ -4174,9 +4174,16 @@ svg {
 }
 
 .thumb-sm {
-  width: 48px;
+  width: 100px;
   display: inline-block;
   overflow: hidden;
+}
+
+.founder {
+  width: 100px;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 45%;
 }
 
 .thumb-md {
@@ -4278,6 +4285,20 @@ img.img-burn:hover,
   -webkit-transform: scale(1.2) rotate(2deg);
   -ms-transform: scale(1.2) rotate(2deg);
   transform: scale(1.2) rotate(2deg);
+}
+
+img.founder-img-burn,
+.founder-img-burn img {
+  position: relative;
+  -webkit-transition: all 0.8s ease-in-out;
+  transition: all 0.8s ease-in-out;
+}
+
+img.founder-img-burn:hover,
+.founder-img-burn:hover img {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
 }
 
 /*hover-up*/
@@ -5788,8 +5809,8 @@ body.no-sidebar .sidebar {
 }
 
 #avatar {
-  width: 64px;
-  height: 64px;
+  width: 150px;
+  height: 150px;
   display: inline-block;
 }
 
